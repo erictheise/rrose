@@ -56,9 +56,9 @@
           <div id="default_map" style="height:400px; width:400px; margin-bottom: 20px;"></div>
           <script type="text/javascript">
               var default_map = L.map('default_map').setView([0.0, 0.0], 2);
-              L.tileLayer('http://localhost/tiles/{z}/{x}/{y}.png', {
+              L.tileLayer('images/tiles/{z}/{x}/{y}.png', {
                   minZoom: 1,
-                  maxZoom: 8
+                  maxZoom: 4
               }).addTo(default_map);
               var default_geoj = new L.GeoJSON( graticule, {
                   style: function(feature){ return feature.properties.style },
@@ -84,9 +84,9 @@
           <div id="escalator_map" style="height:400px; width:400px; margin-bottom: 20px;"></div>
           <script type="text/javascript">
               var escalator_map = L.map('escalator_map').setView([-60.0, -25.0], 2);
-              L.tileLayer('http://localhost/tiles/{z}/{x}/{y}.png', {
+              L.tileLayer('images/tiles/{z}/{x}/{y}.png', {
                   minZoom: 1,
-                  maxZoom: 8
+                  maxZoom: 4
               }).addTo(escalator_map);
               var escalator_geoj = new L.GeoJSON( graticule, {
                   style: function(feature){ return feature.properties.style },
@@ -114,9 +114,9 @@
           <div id="offscreen_map" style="height:400px; width:400px; margin-bottom: 20px;"></div>
           <script type="text/javascript">
               var offscreen_map = L.map('offscreen_map').setView([-60.0, -25.0], 2);
-              L.tileLayer('http://localhost/tiles/{z}/{x}/{y}.png', {
+              L.tileLayer('images/tiles/{z}/{x}/{y}.png', {
                   minZoom: 1,
-                  maxZoom: 8
+                  maxZoom: 4
               }).addTo(offscreen_map);
               var offscreen_geoj = new L.GeoJSON( graticule, {
                   style: function(feature){ return feature.properties.style },
@@ -240,9 +240,9 @@
           <div id="rrose_map" style="height:400px; width:400px; margin-bottom: 20px;"></div>
           <script type="text/javascript">
               var rrose_map = L.map('rrose_map').setView([0.0, 0.0], 2);
-              L.tileLayer('http://localhost/tiles/{z}/{x}/{y}.png', {
+              L.tileLayer('images/tiles/{z}/{x}/{y}.png', {
                   minZoom: 1,
-                  maxZoom: 8
+                  maxZoom: 4
               }).addTo(rrose_map);
               var rrose_geoj = new L.GeoJSON( graticule, {
                   style: function(feature){ return feature.properties.style },
@@ -272,7 +272,7 @@
             Drop <code>rrose-src.js</code> alongside <code>leaflet-src.js</code>, <code>leaflet.rrose.css</code> and
             <code>leaflet.rrose.ie.css</code> alongside <code>leaflet.css</code>.  Include <code>leaflet.rrose.ie.css</code>
             conditionally, as you are already doing with <code>leaflet.ie.css</code>.  Then, instead of instantiating a
-            new L.Popup object, instantiate a new L.Rrose:
+            new L.Popup object, instantiate a new L.Rrose object:
             
             <pre><code>
 ...
@@ -297,7 +297,7 @@ onEachFeature: function(feature,layer){
 
         <h3>Potential Future Work</h3>
         <ul>
-            <li>make it look better in IE 8</li>
+            <li>make it look better in IE 8 and earlier</li>
             <li>make the tip pop up to the side for predominantly east (e, ese, ene) or west (w, wsw, wnw) popups</li>
         </ul>
 
