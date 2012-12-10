@@ -233,7 +233,7 @@
 
         <p>
             This behavior will be familiar to you if you've worked with popups in 
-            <a href="http://openlayers.org/">OpenLayers</a> and other mapping libraries.  Here it is in
+            <a href="http://openlayers.org/">OpenLayers</a> or other mapping libraries.  Here it is in
             action:
         </p>
 
@@ -261,6 +261,31 @@
                   }
               }).addTo(rrose_map);
           </script>
+
+        <p>
+            It looks good in Chrome, FireFox, Safari, and IE 9, less good in IE 8 and earlier.
+        </p>
+
+        <h3>Using it</h3>
+        
+        <p>
+            Drop <code>rrose-src.js</code> alongside <code>leaflet-src.js</code>, <code>leaflet.rrose.css</code> and
+            <code>leaflet.rrose.ie.css</code> alongside <code>leaflet.css</code>.  Include <code>leaflet.rrose.ie.css</code>
+            conditionally, as you are already doing with <code>leaflet.ie.css</code>,
+            
+            <pre><code>
+                <!--[if lte IE 8]>
+                    <link rel="stylesheet" href="leaflet.ie.css" />
+                    <link rel="stylesheet" href="leaflet.rrose.ie.css" />
+                <![endif]-->
+            </code></pre>
+        </p>
+
+        <h3>Potential Future Work</h3>
+        <ul>
+            <li>make it look better in IE 8</li>
+            <li>make the tip pop up to the side for predominantly east (e, ese, ene) or west (w, wsw, wnw) popups</li>
+        </ul>
 
       </section>
       <footer>
