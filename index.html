@@ -269,26 +269,26 @@
         <h3>Using it</h3>
         
         <p>
-            Drop ```rrose-src.js``` alongside ```leaflet-src.js```, ```leaflet.rrose.css``` and
-            ```leaflet.rrose.ie.css``` alongside ```leaflet.css```.  Include ```leaflet.rrose.ie.css```
-            conditionally, as you are already doing with ```leaflet.ie.css```.  Then, instead of instantiating a
+            Drop <code>rrose-src.js</code> alongside <code>leaflet-src.js</code>, <code>leaflet.rrose.css</code> and
+            <code>leaflet.rrose.ie.css</code> alongside <code>leaflet.css</code>.  Include <code>leaflet.rrose.ie.css</code>
+            conditionally, as you are already doing with <code>leaflet.ie.css</code>.  Then, instead of instantiating a
             new L.Popup object, instantiate a new L.Rrose object:
             
-            ```javascript
-            ...
-            
-            onEachFeature: function(feature,layer){
-              layer.on('mouseover', function(e){
-                var hover_bubble = new L.Rrose({ offset: new L.Point(0,-10), closeButton: false, autoPan: false })
-                  .setContent(feature.properties.name)
-                  .setLatLng(e.latlng)
-                  .openOn(rrose_map);
-              });
-              layer.on('mouseout', function(e){ rrose_map.closePopup() });
-            }
-            
-            ...
-            ```
+            <pre><code>
+...
+
+onEachFeature: function(feature,layer){
+  layer.on('mouseover', function(e){
+    var hover_bubble = new L.Rrose({ offset: new L.Point(0,-10), closeButton: false, autoPan: false })
+      .setContent(feature.properties.name)
+      .setLatLng(e.latlng)
+      .openOn(rrose_map);
+  });
+  layer.on('mouseout', function(e){ rrose_map.closePopup() });
+}
+
+...
+            </code></pre>
         </p>
 
         <p>
