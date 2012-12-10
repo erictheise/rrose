@@ -14,24 +14,6 @@
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-      <script type="text/javascript">
-          var default_map = L.map('default_map').setView([0.0, 0.0], 2);
-          L.tileLayer('http://localhost/tiles/{z}/{x}/{y}.png', {
-              minZoom: 1,
-              maxZoom: 8
-          }).addTo(default_map);
-          var default_geoj = new L.GeoJSON( graticule, {
-              style: function(feature){ return feature.properties.style },
-              onEachFeature: function(feature,layer){
-                  layer.on('click',function(e) {
-                      var popup_bubble = new L.Popup()
-                              .setContent(feature.properties.name)
-                              .setLatLng(e.latlng)
-                              .openOn(default_map);
-                  });
-              }
-          }).addTo(default_map);
-      </script>
 
   </head>
   <body>
@@ -54,6 +36,24 @@
             <p><b>Rrose</b> is a plugin for the <a href="http://leafletjs.com/">Leaflet JavaScript Mapping Library</a>.</p>
 
           <div id="default_map" style="height:400px; width:400px"></div>
+          <script type="text/javascript">
+              var default_map = L.map('default_map').setView([0.0, 0.0], 2);
+              L.tileLayer('http://localhost/tiles/{z}/{x}/{y}.png', {
+                  minZoom: 1,
+                  maxZoom: 8
+              }).addTo(default_map);
+              var default_geoj = new L.GeoJSON( graticule, {
+                  style: function(feature){ return feature.properties.style },
+                  onEachFeature: function(feature,layer){
+                      layer.on('click',function(e) {
+                          var popup_bubble = new L.Popup()
+                                  .setContent(feature.properties.name)
+                                  .setLatLng(e.latlng)
+                                  .openOn(default_map);
+                      });
+                  }
+              }).addTo(default_map);
+          </script>
 
       </section>
       <footer>
