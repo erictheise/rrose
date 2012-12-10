@@ -33,12 +33,17 @@
       <section>
         <h3>What is this?</h3>
 
-            <p><b>Rrose</b> is a plugin for with the <a href="http://leafletjs.com/">Leaflet JavaScript Mapping Library</a>. It's useful
-              when you want popups to happen on the <i>mouseover</i> event, and the behavior that comes with <i>autoPan</i> gets in your way.</p
+          <p><b>Rrose</b> is a plugin for the <a href="http://leafletjs.com/">Leaflet JavaScript Mapping Library</a>.
+              It's useful when you want popups to respond to the <i>mouseover</i> event, and the behavior associated
+              with <i>autoPan</i> gets in your way.
+          </p>
 
-            <p>Here's a typical Leaflet map.  If you click on the map, you get a popup containing a random word 
-              (thanks <a href>http://wordnik.com/">Wordnik</a>!).  Note that when you click close to the top, left, or right side of the map, the map
-              moves to accomodate the space of the popup.  <b>autoPan</b> is one of the awesome features built into the Leaflet library.</p>
+          <p>Here's a typical Leaflet map. If you click on the map, you get a popup containing a random word
+              (courtesy <a href="http://wordnik.com/">Wordnik</a>, thanks!). Note that when you click close to the top,
+              left, or right side of the map, the map
+              moves to accommodate the space required to display the popup. <i>autoPan</i> is one of the awesome
+              features built into the Leaflet library that makes maps look good from the git go.
+          </p>
 
               <div id="default_map" style="height:400px; width:400px"></div>
               <script type="text/javascript">
@@ -59,6 +64,37 @@
                       }
                   }).addTo(default_map);
               </script>
+
+          <p>But suppose you'd like popups to respond to mouseover, so that you can quickly scan a map's attributes.  You
+              may wish to reserve the click event to display more detail.  In this case, <i>autoPan</i> may cease to be 
+              your friend; mousing over the top, left, or right side of the map may feel like an escalator ride as autoPan
+              clears room for your popup, leaving you in a new region, which triggers a new popup, etc.
+          </p>
+
+          <div id="escalator_map" style="height:400px; width:400px"></div>
+          <script type="text/javascript">
+              var escalator_map = L.map('escalator_map').setView([-60.0, -25.0], 2);
+              L.tileLayer('http://localhost/tiles/{z}/{x}/{y}.png', {
+                  minZoom: 1,
+                  maxZoom: 8
+              }).addTo(escalator_map);
+              var escalator_geoj = new L.GeoJSON( graticule, {
+                  style: function(feature){ return feature.properties.style },
+                  onEachFeature: function(feature,layer){
+                      layer.on('click',function(e) {
+                          escalator_map.closePopup();
+                          return true;
+                      });
+                      layer.on('mouseover', function(e){
+                          var hover_bubble = new L.Popup({ offset: new L.Point(0,-10), closeButton: false, autoPan: true })
+                                  .setContent(feature.properties.name)
+                                  .setLatLng(e.latlng)
+                                  .openOn(escalator_map);
+                      });
+                      layer.on('mouseout', function(e){ escalator_map.closePopup() });
+                  }
+              }).addTo(escalator_map);
+          </script>
 
       </section>
       <footer>
