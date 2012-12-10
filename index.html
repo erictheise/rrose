@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
@@ -33,27 +33,32 @@
       <section>
         <h3>What is this?</h3>
 
-            <p><b>Rrose</b> is a plugin for the <a href="http://leafletjs.com/">Leaflet JavaScript Mapping Library</a>.</p>
+            <p><b>Rrose</b> is a plugin for with the <a href="http://leafletjs.com/">Leaflet JavaScript Mapping Library</a>. It's useful
+              when you want popups to happen on the <i>mouseover</i> event, and the behavior that comes with <i>autoPan</i> gets in your way.</p
 
-          <div id="default_map" style="height:400px; width:400px"></div>
-          <script type="text/javascript">
-              var default_map = L.map('default_map').setView([0.0, 0.0], 2);
-              L.tileLayer('http://localhost/tiles/{z}/{x}/{y}.png', {
-                  minZoom: 1,
-                  maxZoom: 8
-              }).addTo(default_map);
-              var default_geoj = new L.GeoJSON( graticule, {
-                  style: function(feature){ return feature.properties.style },
-                  onEachFeature: function(feature,layer){
-                      layer.on('click',function(e) {
-                          var popup_bubble = new L.Popup()
-                                  .setContent(feature.properties.name)
-                                  .setLatLng(e.latlng)
-                                  .openOn(default_map);
-                      });
-                  }
-              }).addTo(default_map);
-          </script>
+            <p>Here's a typical Leaflet map.  If you click on the map, you get a popup containing a random word 
+              (thanks <a href>http://wordnik.com/">Wordnik</a>!).  Note that when you click close to the top, left, or right side of the map, the map
+              moves to accomodate the space of the popup.  <b>autoPan</b> is one of the awesome features built into the Leaflet library.</p>
+
+              <div id="default_map" style="height:400px; width:400px"></div>
+              <script type="text/javascript">
+                  var default_map = L.map('default_map').setView([0.0, 0.0], 2);
+                  L.tileLayer('http://localhost/tiles/{z}/{x}/{y}.png', {
+                      minZoom: 1,
+                      maxZoom: 8
+                  }).addTo(default_map);
+                  var default_geoj = new L.GeoJSON( graticule, {
+                      style: function(feature){ return feature.properties.style },
+                      onEachFeature: function(feature,layer){
+                          layer.on('click',function(e) {
+                              var popup_bubble = new L.Popup()
+                                      .setContent(feature.properties.name)
+                                      .setLatLng(e.latlng)
+                                      .openOn(default_map);
+                          });
+                      }
+                  }).addTo(default_map);
+              </script>
 
       </section>
       <footer>
