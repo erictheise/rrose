@@ -7,9 +7,12 @@
 
     <script src="http://cdn.leafletjs.com/leaflet-0.4/leaflet.js"></script>
     <script src="javascripts/graticule.js"></script>
+    <script src="https://github.com/erictheise/rrose/rrose-src.js"></script>
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4/leaflet.css" />
+    <link rel="stylesheet" href="https://github.com/erictheise/rrose/leaflet.rrose.css" />
+    <link rel="stylesheet" href="https://github.com/erictheise/rrose/leaflet.rrose.ie.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -45,30 +48,31 @@
               features built into the Leaflet library that makes maps look good from the git go.
           </p>
 
-              <div id="default_map" style="height:400px; width:400px"></div>
-              <script type="text/javascript">
-                  var default_map = L.map('default_map').setView([0.0, 0.0], 2);
-                  L.tileLayer('http://localhost/tiles/{z}/{x}/{y}.png', {
-                      minZoom: 1,
-                      maxZoom: 8
-                  }).addTo(default_map);
-                  var default_geoj = new L.GeoJSON( graticule, {
-                      style: function(feature){ return feature.properties.style },
-                      onEachFeature: function(feature,layer){
-                          layer.on('click',function(e) {
-                              var popup_bubble = new L.Popup()
-                                      .setContent(feature.properties.name)
-                                      .setLatLng(e.latlng)
-                                      .openOn(default_map);
-                          });
-                      }
-                  }).addTo(default_map);
-              </script>
+          <div id="default_map" style="height:400px; width:400px"></div>
+          <script type="text/javascript">
+              var default_map = L.map('default_map').setView([0.0, 0.0], 2);
+              L.tileLayer('http://localhost/tiles/{z}/{x}/{y}.png', {
+                  minZoom: 1,
+                  maxZoom: 8
+              }).addTo(default_map);
+              var default_geoj = new L.GeoJSON( graticule, {
+                  style: function(feature){ return feature.properties.style },
+                  onEachFeature: function(feature,layer){
+                      layer.on('click',function(e) {
+                          var popup_bubble = new L.Popup()
+                                  .setContent(feature.properties.name)
+                                  .setLatLng(e.latlng)
+                                  .openOn(default_map);
+                      });
+                  }
+              }).addTo(default_map);
+          </script>
 
-          <p>But suppose you'd like popups to respond to mouseover, so that you can quickly scan a map's attributes.  You
+          <p>But suppose you'd like popups to respond to <i>mouseover</i>, so that you can quickly scan a map's attributes.  You
               may wish to reserve the click event to display more detail.  In this case, <i>autoPan</i> may cease to be 
               your friend; mousing over the top, left, or right side of the map may feel like an escalator ride as autoPan
-              clears room for your popup, leaving you in a new region, which triggers a new popup, etc.
+              clears room for your popup, leaving you in a new region, which triggers a new popup, & so on.  It makes your
+              map feel jittery and a little out of control.
           </p>
 
           <div id="escalator_map" style="height:400px; width:400px"></div>
@@ -94,6 +98,66 @@
                       layer.on('mouseout', function(e){ escalator_map.closePopup() });
                   }
               }).addTo(escalator_map);
+          </script>
+
+          <p>Setting <b>autoPan : false</b> triggers a different problem; popups at the top, left, or right edge of the
+              map may end up offscreen, unreadable.
+          </p>
+
+          <div id="offscreen_map" style="height:400px; width:400px"></div>
+          <script type="text/javascript">
+              var offscreen_map = L.map('offscreen_map').setView([-60.0, -25.0], 2);
+              L.tileLayer('http://localhost/tiles/{z}/{x}/{y}.png', {
+                  minZoom: 1,
+                  maxZoom: 8
+              }).addTo(offscreen_map);
+              var offscreen_geoj = new L.GeoJSON( graticule, {
+                  style: function(feature){ return feature.properties.style },
+                  onEachFeature: function(feature,layer){
+                      layer.on('click',function(e) {
+                          offscreen_map.closePopup();
+                          return true;
+                      });
+                      layer.on('mouseover', function(e){
+                          console.log(feature.properties.name,'latlng:',e.latlng.lat,e.latlng.lng,'layerPoint:',e.layerPoint.x,e.layerPoint.y);
+                          var hover_bubble = new L.Popup({ offset: new L.Point(0,-10), closeButton: false, autoPan: false })
+                                  .setContent(feature.properties.name)
+                                  .setLatLng(e.latlng)
+                                  .openOn(offscreen_map);
+                      });
+                      layer.on('mouseout', function(e){ offscreen_map.closePopup() });
+                  }
+              }).addTo(offscreen_map);
+          </script>
+
+          <p>This is the problem that <b>Rrose</b> attempts to solve.  Similar to <a href="http://openlayers.org/">OpenLayers</a> and
+              other mapping libraries, Rrose orients the popup below or to the side of the mouseovered point.
+          </p>
+
+          <div id="rrose_map" style="height:400px; width:400px"></div>
+          <script type="text/javascript">
+              var rrose_map = L.map('rrose_map').setView([0.0, 0.0], 2);
+              L.tileLayer('http://localhost/tiles/{z}/{x}/{y}.png', {
+                  minZoom: 1,
+                  maxZoom: 8
+              }).addTo(rrose_map);
+              var rrose_geoj = new L.GeoJSON( graticule, {
+                  style: function(feature){ return feature.properties.style },
+                  onEachFeature: function(feature,layer){
+                      layer.on('click',function(e) {
+                          rrose_map.closePopup();
+                          return true;
+                      });
+                      layer.on('mouseover', function(e){
+                          console.log(feature.properties.name,'latlng:',e.latlng.lat,e.latlng.lng,'layerPoint:',e.layerPoint.x,e.layerPoint.y);
+                          var hover_bubble = new L.Rrose({ offset: new L.Point(0,-10), closeButton: false, autoPan: false })
+                                  .setContent(feature.properties.name)
+                                  .setLatLng(e.latlng)
+                                  .openOn(rrose_map);
+                      });
+                      layer.on('mouseout', function(e){ rrose_map.closePopup() });
+                  }
+              }).addTo(rrose_map);
           </script>
 
       </section>
