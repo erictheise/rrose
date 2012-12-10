@@ -275,19 +275,19 @@
             new L.Popup object, instantiate a new L.Rrose:
             
             <pre><code>
-            ...
-            
-            onEachFeature: function(feature,layer){
-              layer.on('mouseover', function(e){
-                var hover_bubble = new L.Rrose({ offset: new L.Point(0,-10), closeButton: false, autoPan: false })
-                  .setContent(feature.properties.name)
-                  .setLatLng(e.latlng)
-                  .openOn(rrose_map);
-              });
-              layer.on('mouseout', function(e){ rrose_map.closePopup() });
-            }
-            
-            ...
+...
+
+onEachFeature: function(feature,layer){
+  layer.on('mouseover', function(e){
+    var hover_bubble = new L.Rrose({ offset: new L.Point(0,-10), closeButton: false, autoPan: false })
+      .setContent(feature.properties.name)
+      .setLatLng(e.latlng)
+      .openOn(rrose_map);
+  });
+  layer.on('mouseout', function(e){ rrose_map.closePopup() });
+}
+
+...
             </code></pre>
         </p>
 
