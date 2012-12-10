@@ -36,7 +36,7 @@ onEachFeature: function(feature,layer){
 
 ### About positions
 
-`this.options.position` is used throughout Rrose to refer to the direction in which the popup opens relative to the point. It may seem to be the opposite of what you'd expect, but the ASCII diagram below shows the values.
+`this.options.position` is used throughout Rrose to refer to the direction in which the popup opens relative to the point. The ASCII diagram below shows that the possible values are opposite what you'd find on a compass rose.
 
 ```
    -------------------------
@@ -50,6 +50,6 @@ onEachFeature: function(feature,layer){
    -------------------------
 ```
 
- At one point, I had the notion that the tip should be placed to one side of the popup when the point was closer to the left or right edge of the map than to the top or bottom. I may revisit this in a future version, but in the current version, the tip always appears above or below the popup, and corners are collapsed to a single behavior (i.e., there is no operational difference between 'ese' and 'sse', though they are calculated and used as if there might be).
+ At one point, I had the notion that the tip should be placed alongside the popup when the point was closer to the left or right edge of the map than to the top or bottom. I may revisit this idea in a future version, but in the current version, the tip always appears above or below the popup, and corners are collapsed to a single behavior (i.e., there is no visible difference between 'ese' and 'sse', though they are calculated and passed around as if there might be).
  
- By default, orientation switching occurs when the point is closer than 80 pixels to the top, left, or right of your map.  Changing ```x_bound``` & ```y_bound``` will change this behavior.
+ By default, orientation switching occurs when the point is closer than 80 pixels to the borders of your map.  Changing the values of ```x_bound``` & ```y_bound``` will alter this behavior.
