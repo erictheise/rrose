@@ -40,18 +40,18 @@
         <h3>What is this?</h3>
 
           <p><b>Rrose</b> is a plugin for the <a href="http://leafletjs.com/">Leaflet JavaScript Mapping Library</a>.
-              It's useful when you want popups to respond to the <i>mouseover</i> event, and the behavior associated
-              with <i>autoPan</i> gets in your way.
+              It's useful when you want popups to respond to the <i>mouseover</i> event, but the behavior associated
+              with <i>autoPan</i> is getting in your way.
           </p>
 
           <p>Here's a typical Leaflet map. If you click on the map, you get a popup containing a random word
-              (courtesy <a href="http://wordnik.com/">Wordnik</a>, thanks!). Note that when you click close to the top,
+              (courtesy <a href="http://wordnik.com/">Wordnik</a>). Note that when you click close to the top,
               left, or right side of the map, the map
-              moves to accommodate the space required to display the popup. <i>autoPan</i> is one of the awesome
-              features built into the Leaflet library that makes maps look good from the git go.
+              moves to accommodate the space required to display the popup. This is <i>autoPan</i>, one of the awesome
+              features built into the Leaflet library that makes maps look good from the git-go.
           </p>
 
-          <div id="default_map" style="height:400px; width:400px"></div>
+          <div id="default_map" style="height:400px; width:400px; margin-bottom: 20px;"></div>
           <script type="text/javascript">
               var default_map = L.map('default_map').setView([0.0, 0.0], 2);
               L.tileLayer('http://localhost/tiles/{z}/{x}/{y}.png', {
@@ -71,11 +71,11 @@
               }).addTo(default_map);
           </script>
 
-          <p>But suppose you'd like popups to respond to <i>mouseover</i>, so that you can quickly scan a map's attributes.  You
-              may wish to reserve the click event to display more detail.  In this case, <i>autoPan</i> may cease to be 
-              your friend; mousing over the top, left, or right side of the map may feel like an escalator ride as autoPan
+          <p>But suppose you'd like popups to respond to <i>mouseover</i>, so that you can quickly scan the shortlist of a map's 
+              attributes, reserving the <i>click</i> event to display the details.  In this case, autoPan ceases being 
+              your friend; mousing over the top, left, or right side of the map can kick off an escalator ride as autoPan
               clears room for your popup, leaving you in a new region, which triggers a new popup, & so on.  It makes your
-              map feel jittery and a little out of control.
+              map feel jittery and out of control.
           </p>
 
           <div id="escalator_map" style="height:400px; width:400px"></div>
@@ -104,7 +104,7 @@
           </script>
 
           <p>Setting <b>autoPan : false</b> triggers a different problem; popups at the top, left, or right edge of the
-              map may end up offscreen, unreadable.
+              map end up offscreen, unreadable.
           </p>
 
           <div id="offscreen_map" style="height:400px; width:400px"></div>
@@ -132,7 +132,7 @@
               }).addTo(offscreen_map);
           </script>
 
-          <p>This is the problem that <b>Rrose</b> attempts to solve.  Similar to <a href="http://openlayers.org/">OpenLayers</a> and
+          <p>This is the problem that <b>Rrose</b> aims to solve.  Similar to <a href="http://openlayers.org/">OpenLayers</a> and
               other mapping libraries, Rrose orients the popup below or to the side of the mouseovered point.
           </p>
 
