@@ -1,4 +1,4 @@
 rrose
 =====
 
-Rrose: A Leaflet plugin for when autoPan : false
+Rrose: A Leaflet Plugin for Edge Cases
