@@ -96,8 +96,6 @@ L.Rrose = L.Popup.extend({
       L.DomUtil.setPosition(this._container, pos);
     }
 
-    console.log(this.options.position,' ',this._containerWidth,this._container.offsetHeight);
-
     if (/s/.test(this.options.position)) {
       this._containerBottom = -this._container.offsetHeight + offset.y - (is3d ? 0 : pos.y);
     } else {
