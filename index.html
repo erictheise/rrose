@@ -5,20 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Rrose by erictheise</title>
 
-    <script src="http://cdn.leafletjs.com/leaflet-0.6.2/leaflet-src.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet-src.js"></script>
     <script src="javascripts/graticule.js"></script>
     <script src="javascripts/rrose-src.js"></script>
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.2/leaflet.css" />
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
     <link rel="stylesheet" href="stylesheets/leaflet.rrose.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <!--[if lte IE 8]>
-      <link rel="stylesheet" href="leaflet.ie.css" />
-      <link rel="stylesheet" href="leaflet.rrose.ie.css" />
     <![endif]-->
 
   </head>
@@ -91,10 +87,6 @@
               var escalator_geoj = new L.GeoJSON( graticule, {
                   style: function(feature){ return feature.properties.style },
                   onEachFeature: function(feature,layer){
-                      layer.on('click',function(e) {
-                          escalator_map.closePopup();
-                          return true;
-                      });
                       layer.on('mouseover', function(e){
                           var hover_bubble = new L.Popup({ offset: new L.Point(0,-10), closeButton: false, autoPan: true })
                                   .setContent(feature.properties.name)
@@ -267,12 +259,18 @@
         </p>
 
         <h3>Using it</h3>
-        
+
         <p>
-            Drop <code>rrose-src.js</code> alongside <code>leaflet-src.js</code>, <code>leaflet.rrose.css</code> and
-            <code>leaflet.rrose.ie.css</code> alongside <code>leaflet.css</code>.  Include <code>leaflet.rrose.ie.css</code>
-            conditionally, as you are already doing with <code>leaflet.ie.css</code>.  Then, instead of instantiating a
-            new L.Popup object, instantiate a new L.Rrose object:
+            Make sure you're using Leaflet 0.7.2 or higher, or 0.6.2 or lower. A bug in Leaflet releases 0.6.3, 0.6.4,
+            0.7, and 0.7.1 prevented Rrose from working properly.
+        </p>
+
+        <p>
+            Drop <code>rrose-src.js</code> alongside <code>leaflet-src.js</code>, and <code>leaflet.rrose.css</code>
+            alongside <code>leaflet.css</code>. If you are using Leaflet 0.6.2 or lower, include
+            <code>leaflet.rrose.ie.css</code> conditionally, as you are doing with <code>leaflet.ie.css</code> (this
+            requirement was dropped with Leaflet 0.7.X). Then, instead of instantiating a new L.Popup object,
+            instantiate a new L.Rrose object:
             
             <pre><code>
 ...
@@ -294,12 +292,6 @@ onEachFeature: function(feature,layer){
         <p>
             
         </p>
-
-        <h3>Potential Future Work</h3>
-        <ul>
-            <li>make it look better in IE 8 and earlier</li>
-            <li>make the tip pop up to the side for predominantly east (e, ese, ene) or west (w, wsw, wnw) popups</li>
-        </ul>
 
       </section>
       <footer>
