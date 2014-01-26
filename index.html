@@ -243,7 +243,7 @@
                           rrose_map.closePopup();
                           return true;
                       });
-                      layer.on('mouseover', function(e){
+                      layer.on('mouseover mousemove', function(e){
                           var hover_bubble = new L.Rrose({ offset: new L.Point(0,-10), closeButton: false, autoPan: false })
                                   .setContent(feature.properties.name)
                                   .setLatLng(e.latlng)
@@ -276,7 +276,7 @@
 ...
 
 onEachFeature: function(feature,layer){
-  layer.on('mouseover', function(e){
+  layer.on('mouseover mousemove', function(e){
     var hover_bubble = new L.Rrose({ offset: new L.Point(0,-10), closeButton: false, autoPan: false })
       .setContent(feature.properties.name)
       .setLatLng(e.latlng)
