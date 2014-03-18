@@ -2,20 +2,11 @@
 
 ### What it does
 
-Rrose is a plugin for the Leaflet JavaScript Mapping Library. It's useful when you want popups to respond to the mouseover event, but the behavior associated with autoPan is getting in your way.  The [GitHub page](http://erictheise.github.com/rrose/) shows two types of problems and how Rrose remedies them.
+Rrose is a plugin for the Leaflet JavaScript Mapping Library. It's useful when you want popups to respond to the mouseover and mousemove events, but the behavior associated with autoPan is getting in your way.  The [GitHub page](http://erictheise.github.com/rrose/) shows two types of problems and how Rrose remedies them.
 
 ### How to use it
 
-In your project, drop `rrose-src.js` alongside `leaflet-src.js`, `leaflet.rrose.css` and `leaflet.rrose.ie.css` alongside `leaflet.css`. Include `leaflet.rrose.ie.css` conditionally, as you are already doing with `leaflet.ie.css`:
-
-```javascript
- <!--[if lte IE 8]>
-     <link rel="stylesheet" href="leaflet.ie.css" />
-     <link rel="stylesheet" href="leaflet.rrose.ie.css" />
- <![endif]-->
- ```
-
-Then, instead of instantiating a new `L.Popup` object, instantiate a new `L.Rrose` object:
+In your project, drop `rrose-src.js` alongside `leaflet-src.js`, `leaflet.rrose.css` alongside `leaflet.css`. Then, instead of instantiating a new `L.Popup` object, instantiate a new `L.Rrose` object:
 
 
 ```javascript
