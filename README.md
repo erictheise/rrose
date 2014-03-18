@@ -13,7 +13,7 @@ In your project, drop `rrose-src.js` alongside `leaflet-src.js`, `leaflet.rrose.
 ...
 
 onEachFeature: function(feature,layer){
-  layer.on('mouseover', function(e){
+  layer.on('mouseover mousemove', function(e){
     var hover_bubble = new L.Rrose({ offset: new L.Point(0,-10), closeButton: false, autoPan: false })
       .setContent(feature.properties.name)
       .setLatLng(e.latlng)
