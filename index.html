@@ -244,10 +244,10 @@
 
         <p>
             Drop <code>rrose-src.js</code> alongside <code>leaflet-src.js</code>, and <code>leaflet.rrose.css</code>
-            alongside <code>leaflet.css</code>. If you are using Leaflet 0.6.2 or lower, use Rrose release v0.1.0 and
-            include <code>leaflet.rrose.ie.css</code> conditionally, as you are doing with <code>leaflet.ie.css</code>
-            (this requirement was dropped with Leaflet 0.7.X and is no longer mirrored in Rrose). Then, instead of
-            instantiating a new L.Popup object, instantiate a new L.Rrose object:
+            alongside <code>leaflet.css</code>. (If you need to use Leaflet 0.6.2 or lower, use Rrose release v0.1.0 and
+            include <code>leaflet.rrose.ie.css</code> conditionally, as you would with <code>leaflet.ie.css</code>.
+            This requirement was dropped with Leaflet 0.7.X and, as such, is no longer mirrored in Rrose.) Then, instead
+            of instantiating a new L.Popup object, instantiate a new L.Rrose object:
 
             <pre><code>
 ...
