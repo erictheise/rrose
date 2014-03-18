@@ -50,12 +50,6 @@ L.Rrose = L.Popup.extend({
         this.options.position += 'e'
       }
     }
-    // If it's too far in both dimensions, determine which predominates. e.g., turn 'nw' into either 'nnw' or 'wnw'.
-    if (this.options.position.length === 2) {
-      (y_diff > x_diff) ? 
-        this.options.position = this.options.position.charAt(0) + this.options.position :
-        this.options.position = this.options.position.charAt(1) + this.options.position;
-    }
 
     // Create the necessary DOM elements in the correct order. Pure 'n' and 's' conditions need only one class for styling, others need two.
     if (/s/.test(this.options.position)) {

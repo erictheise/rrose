@@ -22,16 +22,12 @@
     overflow: hidden;
 }
 
-.leaflet-rrose-tip-container-sse, .leaflet-rrose-tip-container-ese,
-.leaflet-rrose-tip-container-nne, .leaflet-rrose-tip-container-ene,
-.leaflet-rrose-tip-container-e {
-    margin-left: 0px;
+.leaflet-rrose-tip-container-se, .leaflet-rrose-tip-container-ne {
+    margin-left: 0;
 }
 
-.leaflet-rrose-tip-container-ssw, .leaflet-rrose-tip-container-wsw,
-.leaflet-rrose-tip-container-nnw, .leaflet-rrose-tip-container-wnw,
-.leaflet-rrose-tip-container-w {
-    margin-right: 0px;
+.leaflet-rrose-tip-container-sw, .leaflet-rrose-tip-container-nw {
+    margin-right: 0;
 }
 
 .leaflet-rrose-tip {
@@ -54,19 +50,19 @@
     margin: 11px auto 0;
 }
 
-.leaflet-rrose-tip-sse, .leaflet-rrose-tip-ese {
+.leaflet-rrose-tip-se {
     margin: 11px 11px 11px -8px; overflow: hidden;
 }
 
-.leaflet-rrose-tip-ssw, .leaflet-rrose-tip-wsw {
+.leaflet-rrose-tip-sw {
     margin: 11px 11px 11px 32px; overflow: hidden;
 }
 
-.leaflet-rrose-tip-nne, .leaflet-rrose-tip-ene, .leaflet-rrose-tip-e {
+.leaflet-rrose-tip-ne {
     margin: -8px 11px 11px -8px; overflow: hidden;
 }
 
-.leaflet-rrose-tip-nnw, .leaflet-rrose-tip-wnw, .leaflet-rrose-tip-w {
+.leaflet-rrose-tip-nw {
     margin: -8px 11px 11px 32px; overflow: hidden;
 }
 
@@ -114,28 +110,28 @@ a.leaflet-rrose-close-button:hover {
     border-radius:         20px;
 }
 
-.leaflet-rrose-content-wrapper-sse, .leaflet-rrose-content-wrapper-ese {
-    -moz-border-radius:    0px 20px 20px 20px;
-    -webkit-border-radius: 0px 20px 20px 20px;
-    border-radius:         0px 20px 20px 20px;
+.leaflet-rrose-content-wrapper-se {
+    -moz-border-radius:    0 20px 20px 20px;
+    -webkit-border-radius: 0 20px 20px 20px;
+    border-radius:         0 20px 20px 20px;
 }
 
-.leaflet-rrose-content-wrapper-ssw, .leaflet-rrose-content-wrapper-wsw {
-    -moz-border-radius:    20px 0px 20px 20px;
-    -webkit-border-radius: 20px 0px 20px 20px;
-    border-radius:         20px 0px 20px 20px;
+.leaflet-rrose-content-wrapper-sw {
+    -moz-border-radius:    20px 0 20px 20px;
+    -webkit-border-radius: 20px 0 20px 20px;
+    border-radius:         20px 0 20px 20px;
 }
 
-.leaflet-rrose-content-wrapper-nnw, .leaflet-rrose-content-wrapper-wnw, .leaflet-rrose-content-wrapper-w {
-    -moz-border-radius:    20px 20px 0px 20px;
-    -webkit-border-radius: 20px 20px 0px 20px;
-    border-radius:         20px 20px 0px 20px;
+.leaflet-rrose-content-wrapper-nw, .leaflet-rrose-content-wrapper-w {
+    -moz-border-radius:    20px 20px 0 20px;
+    -webkit-border-radius: 20px 20px 0 20px;
+    border-radius:         20px 20px 0 20px;
 }
 
-.leaflet-rrose-content-wrapper-nne, .leaflet-rrose-content-wrapper-ene, .leaflet-rrose-content-wrapper-e {
-    -moz-border-radius:    20px 20px 20px 0px;
-    -webkit-border-radius: 20px 20px 20px 0px;
-    border-radius:         20px 20px 20px 0px;
+.leaflet-rrose-content-wrapper-ne, .leaflet-rrose-content-wrapper-e {
+    -moz-border-radius:    20px 20px 20px 0;
+    -webkit-border-radius: 20px 20px 20px 0;
+    border-radius:         20px 20px 20px 0;
 }
 
 .leaflet-rrose-content {
