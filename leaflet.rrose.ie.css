@@ -19,7 +19,7 @@
     -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)";
 }
 
-.leaflet-rrose-tip-sse, .leaflet-rrose-tip-ese {
+.leaflet-rrose-tip-se {
     _margin-top: -8px;
     _margin-left: auto;
     _padding: 10px;
@@ -30,7 +30,7 @@
     -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)";
 }
 
-.leaflet-rrose-tip-ssw, .leaflet-rrose-tip-wsw {
+.leaflet-rrose-tip-sw {
     _margin-top: -8px;
     _margin-left: auto;
     _padding: 10px;
@@ -41,7 +41,7 @@
     -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)";
 }
 
-.leaflet-rrose-tip-nne, .leaflet-rrose-tip-ene, .leaflet-rrose-tip-e {
+.leaflet-rrose-tip-ne {
     _margin-top: -12px;
     _margin-left: auto;
     _padding: 10px;
@@ -52,7 +52,7 @@
     -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)";
 }
 
-.leaflet-rrose-tip-nnw, .leaflet-rrose-tip-wnw, .leaflet-rrose-tip-w {
+.leaflet-rrose-tip-nw {
     _margin-top: -12px;
     _margin-left: auto;
     _padding: 10px;

@@ -40,16 +40,16 @@ onEachFeature: function(feature,layer){
 
 ```
    -------------------------
-  |  sse       s       ssw  |
-  |ese                   wsw|
+  | se         s         sw |
   |                         |
-  |e                       w|
   |                         |
-  |nne                   nnw|
-  |  ene       n       wnw  |
+  |                         |
+  |                         |
+  |                         |
+  | ne         n         nw |
    -------------------------
 ```
 
- At one point, I had the notion that the tip should be placed alongside the popup when the point was closer to the left or right edge of the map than to the top or bottom. I may revisit this idea in a future version, but in the current version, the tip always appears above or below the popup, and corners are collapsed to a single behavior (i.e., there is no visible difference between 'ese' and 'sse', though they are calculated and passed around as if there might be).
+ At one point, I had the notion that the tip should be placed alongside the popup when the point was closer to the left or right edge of the map than to the top or bottom. I may revisit this idea in a future version, but in the current version, the tip always appears above or below the popup. In release 0.1.0, corners were subdivided based on which direction predominated, so that values such as 'ese' and 'sse' were calculated and addressed in css, although there was no difference visible between them; this behavior has been removed as unnecessary.
  
  By default, orientation switching occurs when the point is closer than 80 pixels to the borders of your map.  Changing the values of ```x_bound``` & ```y_bound``` will alter this behavior.
