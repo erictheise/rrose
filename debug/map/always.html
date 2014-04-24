@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>always option: rrose test page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+  <script src="../../rrose-src.js"></script>
+  <script src="../js/ne_110m_admin_0_countries.js"></script>
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+  <link rel="stylesheet" href="../../leaflet.rrose.css" />
+  <link rel="stylesheet" href="../css/screen.css" />
+</head>
+<body>
+
+  <h2>Rrose testing: always option</h2>
+
+  <p><code>autoPan: false</code></p>
+
+  <div id="map_autopan_false" class="map"></div>
+
+  <p><code>autoPan: true</code></p>
+
+  <div id="map_autopan_true" class="map"></div>
+
+  <script type="text/javascript">
+
+    var i = 0, orientations = ['s', 'sw', 'ne', 'n', 'nw', 'se', 'invalid'];
+    countries.features.forEach( function(f) {
+      f['properties']['always'] = orientations[i % 7];
+      i++;
+    });
+
+    var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      osmAttrib = '© <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+    var map_autopan_false = L.map('map_autopan_false')
+        .setView([47.8132, 21.0937], 4)
+        .addLayer(L.tileLayer(osmUrl, { minZoom: 4, maxZoom: 6, attribution: osmAttrib }));
+
+    var geojson = L.geoJson(countries, {
+      style: function(feature) {
+        return { color: '#666', weight: 1, opacity: 0.85, fillColor: '#e8bd1e', fillOpacity: 0.0 };
+      },
+
+      onEachFeature: function(feature, layer) {
+        layer.on('mouseover mousemove', function(e) {
+          layer.setStyle({ fillOpacity: 0.4 });
+          var hover_bubble = new L.Rrose({ always: feature.properties.always, offset: new L.Point(0, -10), closeButton: false, autoPan: false })
+              .setContent(
+                  '<div class="hover-bubble">' +
+                      '<b>' + feature.properties.name + '</b><br />' + 'always: ' + feature.properties.always +
+                  '</div>'
+              )
+              .setLatLng(e.latlng)
+              .openOn(map_autopan_false);
+        });
+
+        layer.on('mouseout', function(e) {
+          geojson.resetStyle(e.target);
+          map_autopan_false.closePopup();
+        });
+
+      }
+    }).addTo(map_autopan_false);
+
+    var map_autopan_true = L.map('map_autopan_true')
+        .setView([47.8132, 21.0937], 4)
+        .addLayer(L.tileLayer(osmUrl, { minZoom: 4, maxZoom: 6, attribution: osmAttrib }));
+
+    var geojson = L.geoJson(countries, {
+      style: function(feature) {
+        return { color: '#666', weight: 1, opacity: 0.85, fillColor: '#e8bd1e', fillOpacity: 0.0 };
+      },
+
+      onEachFeature: function(feature, layer) {
+        layer.on('mouseover mousemove', function(e) {
+          layer.setStyle({ fillOpacity: 0.4 });
+          var hover_bubble = new L.Rrose({ always: feature.properties.always, offset: new L.Point(0, -10), closeButton: false, autoPan: true })
+              .setContent(
+                  '<div class="hover-bubble">' +
+                  '<b>' + feature.properties.name + '</b><br />' + 'always: ' + feature.properties.always +
+                  '</div>'
+          )
+              .setLatLng(e.latlng)
+              .openOn(map_autopan_true);
+        });
+
+        layer.on('mouseout', function(e) {
+          geojson.resetStyle(e.target);
+          map_autopan_true.closePopup();
+        });
+
+      }
+    }).addTo(map_autopan_true);
+
+  </script>
+</body>
+</html>

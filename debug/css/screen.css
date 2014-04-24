@@ -1,0 +1,13 @@
+html {
+  background-color: white;
+}
+
+.map {
+  width: 800px; 
+  height: 600px; 
+  border: 1px solid #ccc;
+  }
+
+.hover-bubble {
+  text-align: center;
+}

@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2012 Eric S. Theise
+  Copyright (c) 2012-2014 Eric S. Theise
   
   Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
   documentation files (the "Software"), to deal in the Software without restriction, including without limitation the 
@@ -14,7 +14,7 @@
   COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
   OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-    
+
 L.Rrose = L.Popup.extend({
 
   _initLayout:function () {
@@ -32,22 +32,34 @@ L.Rrose = L.Popup.extend({
 
     // Set the pixel distances from the map edges at which popups are too close and need to be re-oriented.
     var x_bound = 80, y_bound = 80;
-    // Determine the alternate direction to pop up; north mimics Leaflet's default behavior, so we initialize to that.
-    this.options.position = 'n';
-    // Then see if the point is too far north...
-    var y_diff = y_bound - this._map.latLngToContainerPoint(this._latlng).y;
-    if (y_diff > 0) {
-      this.options.position = 's'
-    }
-    // or too far east...
-    var x_diff = this._map.latLngToContainerPoint(this._latlng).x - (this._map.getSize().x - x_bound);
-    if (x_diff > 0) {
-      this.options.position += 'w'
+
+    // The 'always' option forces the bubble to open in the direction specified; if its value is not recognized, the
+    // direction defaults to the default Leaflet behavior, north.
+    if (this.options.always) {
+      if (['s', 'sw', 'ne', 'n', 'nw', 'se'].indexOf(this.options.always) != -1) {
+        this.options.position = this.options.always;
+      } else {
+        this.options.position = 'n';
+      }
+
     } else {
-    // or too far west.
-      x_diff = x_bound - this._map.latLngToContainerPoint(this._latlng).x;
+      // Determine the alternate direction to pop up; north mimics Leaflet's default behavior, so we initialize to that.
+      this.options.position = 'n';
+      // Then see if the point is too far north...
+      var y_diff = y_bound - this._map.latLngToContainerPoint(this._latlng).y;
+      if (y_diff > 0) {
+        this.options.position = 's'
+      }
+      // or too far east...
+      var x_diff = this._map.latLngToContainerPoint(this._latlng).x - (this._map.getSize().x - x_bound);
       if (x_diff > 0) {
-        this.options.position += 'e'
+        this.options.position += 'w'
+      } else {
+      // or too far west.
+        x_diff = x_bound - this._map.latLngToContainerPoint(this._latlng).x;
+        if (x_diff > 0) {
+          this.options.position += 'e'
+        }
       }
     }
 
