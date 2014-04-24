@@ -36,7 +36,7 @@
 
     var map_autopan_false = L.map('map_autopan_false')
         .setView([47.8132, 21.0937], 4)
-        .addLayer(L.tileLayer(osmUrl, { minZoom: 4, maxZoom: 6, attribution: osmAttrib }));
+        .addLayer(L.tileLayer(osmUrl, { minZoom: 3, maxZoom: 6, attribution: osmAttrib }));
 
     var geojson = L.geoJson(countries, {
       style: function(feature) {
@@ -66,7 +66,7 @@
 
     var map_autopan_true = L.map('map_autopan_true')
         .setView([47.8132, 21.0937], 4)
-        .addLayer(L.tileLayer(osmUrl, { minZoom: 4, maxZoom: 6, attribution: osmAttrib }));
+        .addLayer(L.tileLayer(osmUrl, { minZoom: 3, maxZoom: 6, attribution: osmAttrib }));
 
     var geojson = L.geoJson(countries, {
       style: function(feature) {
