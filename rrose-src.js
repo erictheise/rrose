@@ -20,7 +20,7 @@ L.Rrose = L.Popup.extend({
   _initLayout:function () {
     var prefix = 'leaflet-rrose',
       container = this._container = L.DomUtil.create('div', prefix + ' ' + this.options.className + ' leaflet-zoom-animated'),
-      closeButton, wrapper;
+      closeButton;
 
     if (this.options.closeButton) {
       closeButton = this._closeButton = L.DomUtil.create('a', prefix + '-close-button', container);
@@ -30,57 +30,95 @@ L.Rrose = L.Popup.extend({
       L.DomEvent.on(closeButton, 'click', this._onCloseButtonClick, this);
     }
 
+    this.options.rrose = {
+      prefix: prefix,
+      x_bound: this.options.x_bound || 80,
+      y_bound: this.options.y_bound || 80
+    };
+
     // Set the pixel distances from the map edges at which popups are too close and need to be re-oriented.
-    var x_bound = 80, y_bound = 80;
+    this.updateDirection();
+  },
+
+  updateDirection: function() {
+    var prefix = this.options.rrose.prefix,
+      container = this._container,
+      closeButton = this._closeButton,
+      wrapper = this._wrapper,
+      x_bound = this.options.rrose.x_bound,
+      y_bound = this.options.rrose.y_bound,
+      currentPosition = this.options.position;
+
     // Determine the alternate direction to pop up; north mimics Leaflet's default behavior, so we initialize to that.
-    this.options.position = 'n';
+    var newPosition = 'n';
     // Then see if the point is too far north...
     var y_diff = y_bound - this._map.latLngToContainerPoint(this._latlng).y;
     if (y_diff > 0) {
-      this.options.position = 's'
+      newPosition = 's'
     }
     // or too far east...
     var x_diff = this._map.latLngToContainerPoint(this._latlng).x - (this._map.getSize().x - x_bound);
     if (x_diff > 0) {
-      this.options.position += 'w'
+      newPosition += 'w'
     } else {
     // or too far west.
       x_diff = x_bound - this._map.latLngToContainerPoint(this._latlng).x;
       if (x_diff > 0) {
-        this.options.position += 'e'
+        newPosition += 'e'
       }
     }
 
-    // Create the necessary DOM elements in the correct order. Pure 'n' and 's' conditions need only one class for styling, others need two.
-    if (/s/.test(this.options.position)) {
-      if (this.options.position === 's') {
-        this._tipContainer = L.DomUtil.create('div', prefix + '-tip-container', container);
-        wrapper = this._wrapper = L.DomUtil.create('div', prefix + '-content-wrapper', container);
+    if (!currentPosition) {
+      // Create the necessary DOM elements in the correct order. Pure 'n' and 's' conditions need only one class for styling, others need two.
+      if (/s/.test(newPosition)) {
+        if (newPosition === 's') {
+          this._tipContainer = L.DomUtil.create('div', prefix + '-tip-container', container);
+          wrapper = this._wrapper = L.DomUtil.create('div', prefix + '-content-wrapper', container);
+        } 
+        else {
+          this._tipContainer = L.DomUtil.create('div', prefix + '-tip-container' + ' ' + prefix + '-tip-container-' + newPosition, container);
+          wrapper = this._wrapper = L.DomUtil.create('div', prefix + '-content-wrapper' + ' ' + prefix + '-content-wrapper-' + newPosition, container);
+        }
+        this._tip = L.DomUtil.create('div', prefix + '-tip' + ' ' + prefix + '-tip-' + newPosition, this._tipContainer);
+        L.DomEvent.disableClickPropagation(wrapper);
+        this._contentNode = L.DomUtil.create('div', prefix + '-content', wrapper);
+        L.DomEvent.on(this._contentNode, 'mousewheel', L.DomEvent.stopPropagation);
       } 
       else {
-        this._tipContainer = L.DomUtil.create('div', prefix + '-tip-container' + ' ' + prefix + '-tip-container-' + this.options.position, container);
-        wrapper = this._wrapper = L.DomUtil.create('div', prefix + '-content-wrapper' + ' ' + prefix + '-content-wrapper-' + this.options.position, container);
+        if (newPosition === 'n') {
+          wrapper = this._wrapper = L.DomUtil.create('div', prefix + '-content-wrapper', container);
+          this._tipContainer = L.DomUtil.create('div', prefix + '-tip-container', container);
+        } 
+        else {
+          wrapper = this._wrapper = L.DomUtil.create('div', prefix + '-content-wrapper' + ' ' + prefix + '-content-wrapper-' + newPosition, container);
+          this._tipContainer = L.DomUtil.create('div', prefix + '-tip-container' + ' ' + prefix + '-tip-container-' + newPosition, container);
+        }
+        L.DomEvent.disableClickPropagation(wrapper);
+        this._contentNode = L.DomUtil.create('div', prefix + '-content', wrapper);
+        L.DomEvent.on(this._contentNode, 'mousewheel', L.DomEvent.stopPropagation);
+        this._tip = L.DomUtil.create('div', prefix + '-tip' + ' ' + prefix + '-tip-' + newPosition, this._tipContainer);
       }
-      this._tip = L.DomUtil.create('div', prefix + '-tip' + ' ' + prefix + '-tip-' + this.options.position, this._tipContainer);
-      L.DomEvent.disableClickPropagation(wrapper);
-      this._contentNode = L.DomUtil.create('div', prefix + '-content', wrapper);
-      L.DomEvent.on(this._contentNode, 'mousewheel', L.DomEvent.stopPropagation);
-    } 
-    else {
-      if (this.options.position === 'n') {
-        wrapper = this._wrapper = L.DomUtil.create('div', prefix + '-content-wrapper', container);
-        this._tipContainer = L.DomUtil.create('div', prefix + '-tip-container', container);
-      } 
-      else {
-        wrapper = this._wrapper = L.DomUtil.create('div', prefix + '-content-wrapper' + ' ' + prefix + '-content-wrapper-' + this.options.position, container);
-        this._tipContainer = L.DomUtil.create('div', prefix + '-tip-container' + ' ' + prefix + '-tip-container-' + this.options.position, container);
-      }
-      L.DomEvent.disableClickPropagation(wrapper);
-      this._contentNode = L.DomUtil.create('div', prefix + '-content', wrapper);
-      L.DomEvent.on(this._contentNode, 'mousewheel', L.DomEvent.stopPropagation);
-      this._tip = L.DomUtil.create('div', prefix + '-tip' + ' ' + prefix + '-tip-' + this.options.position, this._tipContainer);
+      this.options.position = newPosition;
     }
-
+    else if (currentPosition != newPosition) {
+      // Update classes
+      L.DomUtil.removeClass(this._wrapper, prefix + '-content-wrapper-' + currentPosition);
+      L.DomUtil.addClass(this._wrapper, prefix + '-content-wrapper-' + newPosition);
+      L.DomUtil.removeClass(this._tipContainer, prefix + '-tip-container-' + currentPosition);
+      L.DomUtil.addClass(this._tipContainer, prefix + '-tip-container-' + newPosition);
+      L.DomUtil.removeClass(this._tip, prefix + '-tip-' + currentPosition);
+      L.DomUtil.addClass(this._tip, prefix + '-tip-' + newPosition);
+      // Swap DOM elements to keep correct order
+      if (/n/.test(currentPosition) && /s/.test(newPosition)) {
+        this._wrapper.parentNode.insertBefore(this._tipContainer, this._wrapper);
+      }
+      else if (/s/.test(currentPosition) && /n/.test(newPosition)) {
+        this._tipContainer.parentNode.insertBefore(this._wrapper, this._tipContainer);
+      }
+      // Finally update elements position
+      this.options.position = newPosition;
+      this._updatePosition();
+    }
   },
 
   _updatePosition:function () {
