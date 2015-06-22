@@ -84,6 +84,12 @@ a.leaflet-rrose-close-button:hover {
     color: #999;
 }
 
+a.leaflet-rrose-close-button-s,
+a.leaflet-rrose-close-button-se,
+a.leaflet-rrose-close-button-sw {
+    top: 20px;
+}
+
 .leaflet-rrose-content p {
     margin: 18px 0;
 }

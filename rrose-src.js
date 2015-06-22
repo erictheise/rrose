@@ -98,6 +98,7 @@ L.Rrose = L.Popup.extend({
         L.DomEvent.on(this._contentNode, 'mousewheel', L.DomEvent.stopPropagation);
         this._tip = L.DomUtil.create('div', prefix + '-tip' + ' ' + prefix + '-tip-' + newPosition, this._tipContainer);
       }
+      L.DomUtil.addClass(closeButton, prefix + '-close-button-' + newPosition);
       this.options.position = newPosition;
     }
     else if (currentPosition != newPosition) {
@@ -108,6 +109,8 @@ L.Rrose = L.Popup.extend({
       L.DomUtil.addClass(this._tipContainer, prefix + '-tip-container-' + newPosition);
       L.DomUtil.removeClass(this._tip, prefix + '-tip-' + currentPosition);
       L.DomUtil.addClass(this._tip, prefix + '-tip-' + newPosition);
+      L.DomUtil.removeClass(closeButton, prefix + '-close-button-' + currentPosition);
+      L.DomUtil.addClass(closeButton, prefix + '-close-button-' + newPosition);
       // Swap DOM elements to keep correct order
       if (/n/.test(currentPosition) && /s/.test(newPosition)) {
         this._wrapper.parentNode.insertBefore(this._tipContainer, this._wrapper);
