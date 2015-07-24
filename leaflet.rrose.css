@@ -80,6 +80,10 @@ a.leaflet-rrose-close-button {
     font-weight: bold;
 }
 
+a.leaflet-rrose-close-button-s {
+  top: 20px;
+}
+
 a.leaflet-rrose-close-button:hover {
     color: #999;
 }
