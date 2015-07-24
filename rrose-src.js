@@ -22,14 +22,6 @@ L.Rrose = L.Popup.extend({
       container = this._container = L.DomUtil.create('div', prefix + ' ' + this.options.className + ' leaflet-zoom-animated'),
       closeButton, wrapper;
 
-    if (this.options.closeButton) {
-      closeButton = this._closeButton = L.DomUtil.create('a', prefix + '-close-button', container);
-      closeButton.href = '#close';
-      closeButton.innerHTML = '&#215;';
-
-      L.DomEvent.on(closeButton, 'click', this._onCloseButtonClick, this);
-    }
-
     // Set the pixel distances from the map edges at which popups are too close and need to be re-oriented.
     var x_bound = 80, y_bound = 80;
     // Determine the alternate direction to pop up; north mimics Leaflet's default behavior, so we initialize to that.
@@ -65,7 +57,15 @@ L.Rrose = L.Popup.extend({
       L.DomEvent.disableClickPropagation(wrapper);
       this._contentNode = L.DomUtil.create('div', prefix + '-content', wrapper);
       L.DomEvent.on(this._contentNode, 'mousewheel', L.DomEvent.stopPropagation);
-    } 
+
+      if (this.options.closeButton) {
+        closeButton = this._closeButton = L.DomUtil.create('a', prefix + '-close-button' + ' ' + prefix + '-close-button-s', container);
+        closeButton.href = '#close';
+        closeButton.innerHTML = '&#215;';
+
+        L.DomEvent.on(closeButton, 'click', this._onCloseButtonClick, this);
+      }
+    }
     else {
       if (this.options.position === 'n') {
         wrapper = this._wrapper = L.DomUtil.create('div', prefix + '-content-wrapper', container);
@@ -79,6 +79,14 @@ L.Rrose = L.Popup.extend({
       this._contentNode = L.DomUtil.create('div', prefix + '-content', wrapper);
       L.DomEvent.on(this._contentNode, 'mousewheel', L.DomEvent.stopPropagation);
       this._tip = L.DomUtil.create('div', prefix + '-tip' + ' ' + prefix + '-tip-' + this.options.position, this._tipContainer);
+
+      if (this.options.closeButton) {
+        closeButton = this._closeButton = L.DomUtil.create('a', prefix + '-close-button', container);
+        closeButton.href = '#close';
+        closeButton.innerHTML = '&#215;';
+
+        L.DomEvent.on(closeButton, 'click', this._onCloseButtonClick, this);
+      }
     }
 
   },
