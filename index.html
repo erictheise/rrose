@@ -231,26 +231,23 @@
               }).addTo(rrose_map);
           </script>
 
-        <p>
-            It looks good in Chrome, FireFox, Safari, Opera, and IE 9, less good in IE 8, don't yet know about earlier.
-        </p>
-
         <h3>Using it</h3>
 
         <p>
-          Rrose works with Leaflet 1.0.0. If you can't upgrade to that major release, make sure you're using Leaflet
-          0.7.2 or higher, or 0.6.2 or lower. A bug in Leaflet releases 0.6.3, 0.6.4,
-          0.7, and 0.7.1 prevented Rrose from working properly.
+          This demo page was updated on 27 Sep 2016, concurrent with the <a
+          href="http://leafletjs.com/2016/09/27/leaflet-1.0-final.html">release of Leaflet 1.0.0</a>. If you can't
+          upgrade to that major release, make sure you're using Leaflet 0.7.2 or higher, or 0.6.2 or lower. A bug in
+          Leaflet releases 0.6.3, 0.6.4, 0.7, and 0.7.1 prevented Rrose from working properly.
         </p>
 
         <p>
-            Drop <code>leaflet.rrose-src.js</code> alongside <code>leaflet-src.js</code>, and <code>leaflet.rrose.css</code>
-            alongside <code>leaflet.css</code>. (If you need to use Leaflet 0.6.2 or lower, use Rrose release v0.1.0 and
-            include <code>leaflet.rrose.ie.css</code> conditionally, as you would with <code>leaflet.ie.css</code>.
-            This requirement was dropped with Leaflet 0.7.X and, as such, is no longer mirrored in Rrose.) Then, instead
-            of instantiating a new L.Popup object, instantiate a new L.Rrose object:
+          Drop <code>leaflet.rrose-src.js</code> alongside <code>leaflet-src.js</code>, and <code>leaflet.rrose.css</code>
+          alongside <code>leaflet.css</code>. (If you need to use Leaflet 0.6.2 or lower, use Rrose release v0.1.0 and
+          include <code>leaflet.rrose.ie.css</code> conditionally, as you would with <code>leaflet.ie.css</code>.
+          This requirement was dropped with Leaflet 0.7.X and, as such, is no longer mirrored in Rrose.) Then, instead
+          of instantiating a new L.Popup object, instantiate a new L.Rrose object:
 
-            <pre><code>
+          <pre><code>
 ...
 
 onEachFeature: function(feature,layer){
