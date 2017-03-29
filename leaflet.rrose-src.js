@@ -17,18 +17,10 @@
     
 L.Rrose = L.Popup.extend({
 
-  _initLayout:function () {
+  _initLayout: function () {
     var prefix = 'leaflet-rrose',
       container = this._container = L.DomUtil.create('div', prefix + ' ' + this.options.className + ' leaflet-zoom-animated'),
       closeButton, wrapper;
-
-    if (this.options.closeButton) {
-      closeButton = this._closeButton = L.DomUtil.create('a', prefix + '-close-button', container);
-      closeButton.href = '#close';
-      closeButton.innerHTML = '&#215;';
-
-      L.DomEvent.on(closeButton, 'click', this._onCloseButtonClick, this);
-    }
 
     // Set the pixel distances from the map edges at which popups are too close and need to be re-oriented.
     var x_bound = 80, y_bound = 80;
@@ -49,6 +41,18 @@ L.Rrose = L.Popup.extend({
       if (x_diff > 0) {
         this.options.position += 'e'
       }
+    }
+
+    if (this.options.closeButton) {
+      let closeButtonClass = prefix + '-close-button';
+      if (this.options.position === 's') {
+        closeButtonClass += ' ' + prefix + '-close-button-s';
+      }
+      closeButton = this._closeButton = L.DomUtil.create('a', closeButtonClass, container);
+      closeButton.href = '#close';
+      closeButton.innerHTML = '&#215;';
+
+      L.DomEvent.on(closeButton, 'click', this._onCloseButtonClick, this);
     }
 
     // Create the necessary DOM elements in the correct order. Pure 'n' and 's' conditions need only one class for styling, others need two.
@@ -83,7 +87,7 @@ L.Rrose = L.Popup.extend({
 
   },
 
-  _updatePosition:function () {
+  _updatePosition: function () {
     var pos = this._map.latLngToLayerPoint(this._latlng),
       is3d = L.Browser.any3d,
       offset = this.options.offset;
