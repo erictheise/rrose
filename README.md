@@ -6,7 +6,7 @@ Rrose is a plugin for the Leaflet JavaScript Mapping Library. It's useful when y
 
 ### How to use it
 
-In your project, drop `leaflet.rrose-src.js` alongside `leaflet-src.js`, `leaflet.rrose.css` alongside `leaflet.css`. You can also install Rrose via [bower](http://bower.io/). Then, instead of instantiating a new `L.Popup` object, instantiate a new `L.Rrose` object:
+In your project, drop `leaflet.rrose-src.js` alongside `leaflet-src.js`, `leaflet.rrose.css` alongside `leaflet.css`. You can also install Rrose (v0.2.0) via [bower](http://bower.io/), or serve the library up from [jsDelivr](https://www.jsdelivr.com/?query=rrose). Then, instead of instantiating a new `L.Popup` object, instantiate a new `L.Rrose` object:
 
 
 ```javascript

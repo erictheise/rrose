@@ -17,38 +17,54 @@
     
 L.Rrose = L.Popup.extend({
 
-  _initLayout:function () {
+  _initLayout: function () {
     var prefix = 'leaflet-rrose',
       container = this._container = L.DomUtil.create('div', prefix + ' ' + this.options.className + ' leaflet-zoom-animated'),
       closeButton, wrapper;
 
-    if (this.options.closeButton) {
-      closeButton = this._closeButton = L.DomUtil.create('a', prefix + '-close-button', container);
-      closeButton.href = '#close';
-      closeButton.innerHTML = '&#215;';
-
-      L.DomEvent.on(closeButton, 'click', this._onCloseButtonClick, this);
-    }
-
     // Set the pixel distances from the map edges at which popups are too close and need to be re-oriented.
-    var x_bound = 80, y_bound = 80;
+    var xBound, yBound;
+    if (this.options.xBound) {
+      xBound = this.options.xBound;
+    }
+    else {
+      xBound = 80;
+    }
+    if (this.options.yBound) {
+      yBound = this.options.yBound;
+    }
+    else {
+      yBound = 80;
+    }
     // Determine the alternate direction to pop up; north mimics Leaflet's default behavior, so we initialize to that.
     this.options.position = 'n';
     // Then see if the point is too far north...
-    var y_diff = y_bound - this._map.latLngToContainerPoint(this._latlng).y;
+    var y_diff = yBound - this._map.latLngToContainerPoint(this._latlng).y;
     if (y_diff > 0) {
       this.options.position = 's'
     }
     // or too far east...
-    var x_diff = this._map.latLngToContainerPoint(this._latlng).x - (this._map.getSize().x - x_bound);
+    var x_diff = this._map.latLngToContainerPoint(this._latlng).x - (this._map.getSize().x - xBound);
     if (x_diff > 0) {
       this.options.position += 'w'
     } else {
     // or too far west.
-      x_diff = x_bound - this._map.latLngToContainerPoint(this._latlng).x;
+      x_diff = xBound - this._map.latLngToContainerPoint(this._latlng).x;
       if (x_diff > 0) {
         this.options.position += 'e'
       }
+    }
+
+    if (this.options.closeButton) {
+      let closeButtonClass = prefix + '-close-button';
+      if (this.options.position === 's') {
+        closeButtonClass += ' ' + prefix + '-close-button-s';
+      }
+      closeButton = this._closeButton = L.DomUtil.create('a', closeButtonClass, container);
+      closeButton.href = '#close';
+      closeButton.innerHTML = '&#215;';
+
+      L.DomEvent.on(closeButton, 'click', this._onCloseButtonClick, this);
     }
 
     // Create the necessary DOM elements in the correct order. Pure 'n' and 's' conditions need only one class for styling, others need two.
@@ -83,7 +99,7 @@ L.Rrose = L.Popup.extend({
 
   },
 
-  _updatePosition:function () {
+  _updatePosition: function () {
     var pos = this._map.latLngToLayerPoint(this._latlng),
       is3d = L.Browser.any3d,
       offset = this.options.offset;
@@ -93,7 +109,12 @@ L.Rrose = L.Popup.extend({
     }
 
     if (/s/.test(this.options.position)) {
-      this._containerBottom = -this._container.offsetHeight + offset.y - (is3d ? 0 : pos.y);
+        if (this._map.getBounds()._southWest.lat < 0) {
+            this._containerBottom = -this._container.offsetHeight - offset.y + (is3d ? 0 : pos.y);
+        }
+        else {
+            this._containerBottom = -this._container.offsetHeight + offset.y - (is3d ? 0 : pos.y);
+        }
     } else {
       this._containerBottom = -offset.y - (is3d ? 0 : pos.y);
     }
@@ -113,3 +134,7 @@ L.Rrose = L.Popup.extend({
   }
 
 });
+
+L.rrose = function (options, source) {
+	return new L.Rrose(options, source);
+};
