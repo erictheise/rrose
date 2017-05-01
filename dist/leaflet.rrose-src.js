@@ -109,7 +109,12 @@ L.Rrose = L.Popup.extend({
     }
 
     if (/s/.test(this.options.position)) {
-      this._containerBottom = -this._container.offsetHeight + offset.y - (is3d ? 0 : pos.y);
+        if (this._map.getBounds()._southWest.lat < 0) {
+            this._containerBottom = -this._container.offsetHeight - offset.y + (is3d ? 0 : pos.y);
+        }
+        else {
+            this._containerBottom = -this._container.offsetHeight + offset.y - (is3d ? 0 : pos.y);
+        }
     } else {
       this._containerBottom = -offset.y - (is3d ? 0 : pos.y);
     }
