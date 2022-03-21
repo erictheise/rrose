@@ -14,10 +14,10 @@ In your project, drop `leaflet.rrose-src.js` alongside `leaflet-src.js`, `leafle
 
 onEachFeature: function(feature,layer){
   layer.on('mouseover mousemove', function(e){
-    var hover_bubble = new L.Rrose({ offset: new L.Point(0,0), autoPan: false, closeButton: true, height: tooltip_height, width: 303})
-			      .setContent(getOverlayTooltipHtml(layer.feature))
+    var hover_bubble = new L.Rrose({ offset: new L.Point(0,0), autoPan: false, closeButton: true, height: 343, width: 303})
+			      .setContent(feature.properties.name)
 			      .setLatLng(e.latlng)
-			      .openOn(map);
+			      .openOn(rrose_map);
 	});
   layer.on('mouseout', function(e){ rrose_map.closePopup() });
 }
