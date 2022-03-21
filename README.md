@@ -14,11 +14,11 @@ In your project, drop `leaflet.rrose-src.js` alongside `leaflet-src.js`, `leafle
 
 onEachFeature: function(feature,layer){
   layer.on('mouseover mousemove', function(e){
-    var hover_bubble = new L.Rrose({ offset: new L.Point(0,-10), closeButton: false, autoPan: false })
-      .setContent(feature.properties.name)
-      .setLatLng(e.latlng)
-      .openOn(rrose_map);
-  });
+    var hover_bubble = new L.Rrose({ offset: new L.Point(0,0), autoPan: false, closeButton: true, height: 343, width: 303})
+			      .setContent(feature.properties.name)
+			      .setLatLng(e.latlng)
+			      .openOn(rrose_map);
+	});
   layer.on('mouseout', function(e){ rrose_map.closePopup() });
 }
 
@@ -34,13 +34,13 @@ onEachFeature: function(feature,layer){
   | se         s         sw |
   |                         |
   |                         |
-  |                         |
+  | e                     w |
   |                         |
   |                         |
   | ne         n         nw |
    -------------------------
 ```
 
- At one point, I had the notion that the tip should be placed alongside the popup when the point was closer to the left or right edge of the map than to the top or bottom. I may revisit this idea in a future version, but in the current version, the tip always appears above or below the popup. In release 0.1.0, corners were subdivided based on which direction predominated, so that values such as 'ese' and 'sse' were calculated and addressed in css, although there was no difference visible between them; this behavior has been removed as unnecessary.
+ Two new directions are added in which the tip moves along side based on the point of selection in the map. The tooltip is fixed starting from the top of the view port while the tip moves.The tooltip is opened in east or west based on space available.
  
- By default, orientation switching occurs when the point is closer than 80 pixels to the borders of your map.  Changing the values of ```x_bound``` & ```y_bound``` will alter this behavior.
+ The default behavior where orientation switching occurs when the point is closer than 80 pixels to the borders of your map, is changed now and the user can send the width and height of the tooltip in options.  
