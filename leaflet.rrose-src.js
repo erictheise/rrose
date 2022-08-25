@@ -27,7 +27,7 @@ L.Rrose = L.Popup.extend({
       closeButton.href = '#close';
       closeButton.innerHTML = '&#215;';
 
-      L.DomEvent.on(closeButton, 'click', this._onCloseButtonClick, this);
+      L.DomEvent.on(closeButton, 'click', this.close, this);
     }
 
     // Set the pixel distances from the map edges at which popups are too close and need to be re-oriented.
