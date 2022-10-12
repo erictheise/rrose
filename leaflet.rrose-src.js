@@ -27,7 +27,13 @@ L.Rrose = L.Popup.extend({
       closeButton.href = '#close';
       closeButton.innerHTML = '&#215;';
 
-      L.DomEvent.on(closeButton, 'click', this._onCloseButtonClick, this);
+
+			if (this._LversionLowerThan('1.8.0')) {
+				L.DomEvent.on(closeButton, 'click', this._onCloseButtonClick, this)
+			} else {
+				L.DomEvent.on(closeButton, 'click', L.DomEvent.preventDefault, this);
+				L.DomEvent.on(closeButton, 'click', this.close, this);
+			}
     }
 
     // Set the pixel distances from the map edges at which popups are too close and need to be re-oriented.
@@ -112,4 +118,20 @@ L.Rrose = L.Popup.extend({
     this._container.style.left = this._containerLeft + 'px';
   }
 
+
+  _LversionLowerThan:function(version) {
+		function versionLowerThan(v1, v2) {
+			var [a1, a2] = [v1, v2].map(v => v.match(/\d+/g));
+			for (var i = 0; i < Math.max(a1.length, a2.length); i++) {
+				var [part1, part2] = [a1, a2].map(a => a[i] || 0);
+				if (part1 < part2) {
+					return true;
+				} else if (part1 > part2) {
+					return false;
+				}
+			}
+			return false;
+		}
+		return versionLowerThan(L.version, version);
+  }
 });
