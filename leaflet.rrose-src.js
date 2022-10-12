@@ -118,10 +118,20 @@ L.Rrose = L.Popup.extend({
     this._container.style.left = this._containerLeft + 'px';
   }
 
+
   _LversionLowerThan:function(version) {
-    function versionToNumeric(version) {
-      return +version.match(/\d+/g).join('');
-    }
-    return versionToNumeric(L.version) < versionToNumeric(version);
+		function versionLowerThan(v1, v2) {
+			var [a1, a2] = [v1, v2].map(v => v.match(/\d+/g));
+			for (var i = 0; i < Math.max(a1.length, a2.length); i++) {
+				var [part1, part2] = [a1, a2].map(a => a[i] || 0);
+				if (part1 < part2) {
+					return true;
+				} else if (part1 > part2) {
+					return false;
+				}
+			}
+			return false;
+		}
+		return versionLowerThan(L.version, version);
   }
 });
